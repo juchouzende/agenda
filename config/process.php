@@ -13,7 +13,9 @@
     // Criar contato
     if($data["type"] === "create") {
 
-      $name = $data["name"];
+      $name = $data["name of the pet"];
+      $name = $data["name of the responsable"];
+      $name = $data["pet breed"];
       $phone = $data["phone"];
       $observations = $data["observations"];
 
@@ -21,14 +23,16 @@
 
       $stmt = $conn->prepare($query);
 
-      $stmt->bindParam(":name", $name);
+      $stmt->bindParam(":name of the pet", $name);
+      $stmt->bindParam(":name of the responsable", $name);
+      $stmt->bindParam(":pet breed", $name);
       $stmt->bindParam(":phone", $phone);
       $stmt->bindParam(":observations", $observations);
 
       try {
 
         $stmt->execute();
-        $_SESSION["msg"] = "Contato criado com sucesso!";
+        $_SESSION["msg"] = "Paciente registrado com sucesso!";
     
       } catch(PDOException $e) {
         // erro na conexão
@@ -38,18 +42,22 @@
 
     } else if($data["type"] === "edit") {
 
-      $name = $data["name"];
+      $name = $data["name of the pet"];
+      $name = $data["name of the responsable"];
+      $name = $data["pet breed"];
       $phone = $data["phone"];
       $observations = $data["observations"];
       $id = $data["id"];
 
       $query = "UPDATE contacts 
-                SET name = :name, phone = :phone, observations = :observations 
+                SET name = :nome do pet, phone = :phone, observations = :observations 
                 WHERE id = :id";
 
       $stmt = $conn->prepare($query);
 
-      $stmt->bindParam(":name", $name);
+      $stmt->bindParam(":name of the pet", $name);
+      $stmt->bindParam(":name of the responsable", $name);
+      $stmt->bindParam(":pet breed", $name);
       $stmt->bindParam(":phone", $phone);
       $stmt->bindParam(":observations", $observations);
       $stmt->bindParam(":id", $id);
@@ -57,7 +65,7 @@
       try {
 
         $stmt->execute();
-        $_SESSION["msg"] = "Contato atualizado com sucesso!";
+        $_SESSION["msg"] = "Paciente atualizado com sucesso!";
     
       } catch(PDOException $e) {
         // erro na conexão
@@ -78,7 +86,7 @@
       try {
 
         $stmt->execute();
-        $_SESSION["msg"] = "Contato removido com sucesso!";
+        $_SESSION["msg"] = "Paciente removido com sucesso!";
     
       } catch(PDOException $e) {
         // erro na conexão
@@ -118,7 +126,7 @@
       // Retorna todos os contatos
       $contacts = [];
 
-      $query = "SELECT * FROM contacts";
+      $query = "SELECT id, name as 'nome do pet', phone, observations FROM contacts";
 
       $stmt = $conn->prepare($query);
 

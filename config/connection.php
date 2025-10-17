@@ -3,7 +3,7 @@
   $host = "localhost";
   $dbname = "agenda";
   $user = "root";
-  $pass = "root";
+  $pass = "Senai@118";
 
   try {
 
